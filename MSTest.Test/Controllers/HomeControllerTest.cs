@@ -25,7 +25,7 @@ namespace MvcUnitTesting.Tests.Controllers
 
             //Act
             HomeController controller = new HomeController(bookRepository,null);
-            ViewResult viewResult = controller.Index() as ViewResult;
+            ViewResult viewResult = controller.Index(null) as ViewResult;
             var model = viewResult.Model as IEnumerable<Book>;
 
             //Assert
@@ -48,6 +48,27 @@ namespace MvcUnitTesting.Tests.Controllers
             Assert.AreEqual("Your Privacy is our concern", result.ViewData["Message"]);
         }
 
-       
+        [TestMethod]
+        public void show_ViewData_genre_test()
+        {
+            // Arrange
+            var bookRepository = Mock.Create<IRepository<Book>>();
+            HomeController controller = new HomeController(bookRepository, null);
+            var inputGenre = "Fiction";
+            List<Book> books = new List<Book>();
+            books.AddRange( new[] {
+                    new Book { Genre="Fiction", ID=1, Name="Moby Dick", Price=12.50m},
+                    new Book { Genre="Fiction", ID=2, Name="War and Peace", Price=17m} });
+
+            Mock.Arrange(() => bookRepository.Find(b => b.Genre == inputGenre)).
+               Returns(books).MustBeCalled();
+
+            // Act
+            ViewResult result = controller.Index(inputGenre) as ViewResult;
+            var model = result.Model as IEnumerable<Book>;
+
+            // Assert
+            Assert.AreEqual(2, model.Count());
+        }
     }
 }
