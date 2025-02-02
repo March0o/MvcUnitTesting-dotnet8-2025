@@ -10,7 +10,7 @@
 </div>
 
 <div class="hero-unit">
-    <h1>Books</h1>
+    <h1>Home Page, All Books</h1>
 </div>
 
 <table class="table">
@@ -44,4 +44,10 @@
                 </tr>
             }
         }
+
+    <form asp-controller="Book" asp-action="Index" method="get">
+        <label for="genre">Enter Genre:</label>
+        <input type="text" name="genre" class="form-control" required />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 </table>

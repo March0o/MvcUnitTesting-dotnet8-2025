@@ -4,7 +4,7 @@ namespace MvcUnitTesting_dotnet8.Models
 {
     public class BookDbContext : DbContext
     {
-        public BookDbContext(DbContextOptions options) : base(options)
+        public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
         {
 
         }

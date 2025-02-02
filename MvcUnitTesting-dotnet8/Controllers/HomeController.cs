@@ -39,6 +39,13 @@ namespace MvcUnitTesting_dotnet8.Controllers
             return View();
         }
 
+        public IActionResult NavigateToGenreBooks()
+        {
+            var genreBooks = repository.Find(b => b.Genre == "Fiction");
+            ViewData["Genre"] = "Fiction";
+            return View(genreBooks);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

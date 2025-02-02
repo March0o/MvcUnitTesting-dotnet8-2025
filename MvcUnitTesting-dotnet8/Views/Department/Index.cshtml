@@ -1,0 +1,38 @@
+﻿@model EmployeeDepartmentViewModel
+
+@{
+    ViewData["Title"] = "Employees by Department";
+}
+
+<h1>Employees by Department</h1>
+
+<table>
+    @foreach (var department in Model.Departments)
+    {
+        <tr>
+            <td><h3>@department.Name</h3></td>
+        </tr>
+
+        var departmentEmployees = Model.Employees.Where(e => e.DepartmentId == department.ID).ToList();
+
+        if (departmentEmployees.Any())
+        {
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+            </tr>
+            @foreach (var employee in departmentEmployees)
+            {
+                <tr>
+                    <td>@employee.name</td>
+                    <td>@employee.ID</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>No employees in this department.</p>
+        }
+    }
+</table>
+
